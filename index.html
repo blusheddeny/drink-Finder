@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Drinks</title>
+    <link rel="icon" type="image/x-icon" href="./imags/favicon.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+</head>
+<style>
+
+</style>
+<body>
+  <div class="container">
+    <form class="col s12"  id="myForm" >
+      <div class="row">
+        <div class="input-field col s6">
+          <input placeholder="Search drinks"class="search" type="text">
+        </div>
+        <div class="input-field col s6">
+        <input class="btn" id="start" type="submit" value="go">
+        </div>
+        
+      </div>
+        
+    
+ </form>
+        
+    
+    
+    <div id="test" class=" section row wrapper">
+      
+    </div>
+  </div>
+    
+  </body>
+  <script>
+  // document.getElementById('start').addEventListener('click', getFetch)
+
+   const myForm = document.getElementById('myForm')
+
+   myForm.addEventListener('submit', function (e){
+      //fixes network error 
+      
+      e.preventDefault()
+       const formData = new FormData(this)
+
+    const query = document.querySelector('input').value
+    const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`
+    const test = document.getElementById('test')
+    
+    fetch(url, {
+        method:'post',
+        body: formData
+    })
+        .then(res => res.json()) // parse response as JSON
+        .then(data => {
+            console.log(data.drinks)
+            let arr1 = data.drinks
+            
+            //const arr1 = data.drinks
+            //obtain feature for every drink
+            //const arr2 = 
+            test.innerHTML = ""
+            arr1.map(x => {
+                test.innerHTML += `
+                
+                <div class="col s12 m10 l3">
+                <div class="card">
+                  <div class="card-image">
+                <img id="img" src="${x.strDrinkThumb}" alt=""/>
+                </div>
+                <div class="card-title">
+                <span class="drinkName" id="title">${x.strDrink}</span>
+                </div>
+                <div class="card-content">
+                  <span class="truncate">
+                  ${x.strInstructions}
+                    </span>
+                    <div class="card-action">
+          <a href="#">See ingredients</a>
+        </div>
+                </div>
+                </div>
+                </div>
+                
+
+                `
+                
+               
+            })
+
+            
+
+            
+        })
+        .catch(err => {
+            console.log(`error ${err}`)
+        });
+   })
+  
+    
+  </script>
+</html>
