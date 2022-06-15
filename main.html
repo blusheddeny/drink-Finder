@@ -10,23 +10,37 @@
 
 </head>
 <style>
+*{
+  margin: 0;
+  padding: 0;
+}
+html{
+  height: 100%;
 
+}
+.wrapper{
+  padding: 1rem;
+
+}
 </style>
 <body>
-  <div class="container">
-    <form class="col s12"  id="myForm" >
-      <div class="row">
-        <div class="input-field col s6">
-          <input placeholder="Search drinks"class="search" type="text">
+  <div class="container wrapper #ff9800 orange">
+    <div class="container">
+      <form class="col s12"  id="myForm" >
+        <div class="row">
+          <div class="input-field col s6">
+            <input placeholder="Search drinks"class="search" type="text">
+          </div>
+          <div class="input-field col s6">
+          <input class="btn" id="start" type="submit" value="go">
+          </div>
+          
         </div>
-        <div class="input-field col s6">
-        <input class="btn" id="start" type="submit" value="go">
-        </div>
-        
-      </div>
-        
+          
+      
+   </form>
+    </div>
     
- </form>
         
     
     
@@ -80,7 +94,7 @@
                   ${x.strInstructions}
                     </span>
                     <div class="card-action">
-          <a href="#">See ingredients</a>
+          <a href="#">See more</a>
         </div>
                 </div>
                 </div>
