@@ -1,120 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drinks</title>
-    <link rel="icon" type="image/x-icon" href="./imags/favicon.ico">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
 
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Drinks</title>
+  <link rel="icon" type="image/x-icon" href="./imags/favicon.ico">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" id="mater">
+  <link rel="stylesheet" href="main.css" media="none" id="legacy">
 </head>
 <style>
-*{
-  margin: 0;
-  padding: 0;
-}
-html{
-  height: 100%;
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+body{
+  background-image: url('drinks-wallpaper-2.svg') ;
 
 }
-.wrapper{
-  padding: 1rem;
-
+:root{
+    --accent-color:#0476D9;
+    --primary:#E7E4F2;
+    --secondary:#BF7381;
+    --terciary:#BBBDF2;
+    --visited-color:#034C8C;
+  }
+.main-title{
+  margin-top:-0.5em;
+  font-family: 'Pacifico', cursive;
+  color: var(--accent-color);
 }
+
 </style>
+
 <body>
-  <div class="container wrapper #ff9800 orange">
-    <div class="container">
-      <form class="col s12"  id="myForm" >
-        <div class="row">
-          <div class="input-field col s6">
-            <input placeholder="Search drinks"class="search" type="text">
-          </div>
-          <div class="input-field col s6">
-          <input class="btn" id="start" type="submit" value="go">
-          </div>
-          
+  <div class="container wrapper">
+    <div class="row section">
+      <div class="col s12 center ">
+        <div class="welcome">
+        <img  class ="icon-mk hide-on-small-only" src="drinks-wallpaper-1.svg" alt="image-for-drinks-search" width="350" height="auto">
+          <h1 class="main-title">Pick your drink</h1>
         </div>
-          
-      
-   </form>
-    </div>
-    
         
-    
-    
-    <div id="test" class=" section row wrapper">
+      </div>
+      <div class="container center-align examples">
+        <p>Try some examples</p>
+        <div class="btn-box">
+          <button id="pineapple" onclick="examples('pineapple')" class="btn red accent-1 btn-option btn-1">pineapple</button>
+        <button id="gin" onclick="examples('gin')" class="btn red accent-1 btn-option btn-1">gin</button>
+        </div>
+        
+
+      </div>
+      <div class="container form-wrapper ">
+        <form class="col center-align s12 " id="myForm">
+          <div class="row row-1">
+            <div class="input-field col s6">
+              <input class="search" id="query" name="query" placeholder="Search drinks" class="search" type="text">
+            </div>
+            <div class="input-field col s6">
+              <input class="btn btn-success btn-1" id="start" type="submit" value="go">
+            </div>
+          </div>
+        </form>
+      </div>
+      
+
+      <div  id="test" class="section row wrapper drink-result">
+        
+      </div>
+
+      <div class="section col s12 bg">
+        <div class="show row ">
+          <div class="eximg col s12 m6 l4">
+            <div class="card">
+              <div class="card-image ">
+                <img class="drink-img" id="img" src="https://www.thecocktaildb.com/images/media/drink/5ia6j21504887829.jpg" alt="" />
+              </div>
+              <div class="card-title secondary">
+                <span class="drinkName" id="title">Pink Lady</span>
+              </div>
+              <div class="card-content terciary">
+                <span class=" drinkDes truncate">
+                  Shake all ingredients with ice, strain into a cocktail glass, and serve
+                </span>
+                <div class="card-action">
+                  <a href="#">See more</a>
+                </div>
+              </div>
+            </div>
+          </div>
+          
+          <div class=" descrip col s12 m6 l6">
+            <h2>Explore your favorite drinks. Share your picks</h2>
+          </div>
+          
+
+        </div>
+        <footer class="section col s12">
+          <div class="row">
+            <button class="btn btn-1 btn-success" id="changeTheme">Change theme</button>
+            <p>Designed by Ingrid Valdez</p>
+          </div>
+          
+        </footer>
+      </div>
+
+
+
+
       
     </div>
   </div>
-    
-  </body>
-  <script>
-  // document.getElementById('start').addEventListener('click', getFetch)
-
-   const myForm = document.getElementById('myForm')
-
-   myForm.addEventListener('submit', function (e){
-      //fixes network error 
-      
-      e.preventDefault()
-       const formData = new FormData(this)
-
-    const query = document.querySelector('input').value
-    const url = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${query}`
-    const test = document.getElementById('test')
-    
-    fetch(url, {
-        method:'post',
-        body: formData
-    })
-        .then(res => res.json()) // parse response as JSON
-        .then(data => {
-            console.log(data.drinks)
-            let arr1 = data.drinks
-            
-            //const arr1 = data.drinks
-            //obtain feature for every drink
-            //const arr2 = 
-            test.innerHTML = ""
-            arr1.map(x => {
-                test.innerHTML += `
-                
-                <div class="col s12 m10 l3">
-                <div class="card">
-                  <div class="card-image">
-                <img id="img" src="${x.strDrinkThumb}" alt=""/>
-                </div>
-                <div class="card-title">
-                <span class="drinkName" id="title">${x.strDrink}</span>
-                </div>
-                <div class="card-content">
-                  <span class="truncate">
-                  ${x.strInstructions}
-                    </span>
-                    <div class="card-action">
-          <a href="#">See more</a>
-        </div>
-                </div>
-                </div>
-                </div>
-                
-
-                `
-                
-               
-            })
-
-            
-
-            
-        })
-        .catch(err => {
-            console.log(`error ${err}`)
-        });
-   })
   
-    
-  </script>
+<script src="index.js"></script>
+</body>
+
+
 </html>
